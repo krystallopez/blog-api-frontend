@@ -11,6 +11,8 @@
     <router-link to="/login">Log In</router-link>
     |
     <router-link to="/logout">Logout</router-link>
+    |
+    <router-link to="/posts">All Posts</router-link>
   </nav>
   <router-view />
 </template>
