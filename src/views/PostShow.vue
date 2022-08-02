@@ -17,6 +17,12 @@ export default {
         console.log("One Post", response.data);
       });
     },
+    destroyPost: function () {
+      axios.delete("/posts/" + this.post.id + ".json").then((response) => {
+        console.log(response.data);
+        this.$router.push("/posts");
+      });
+    },
   },
 };
 </script>
@@ -26,6 +32,12 @@ export default {
     <h1>{{ post.title }}</h1>
     <img v-bind:src="post.image" v-bind:alt="post.title" />
     <h2>{{ post.body }}</h2>
+    <div>
+      <a v-bind:href="`/posts/${post.id}/edit`">Edit Post</a>
+    </div>
+    <div>
+      <button v-on:click="destroyPost()">Delete Post</button>
+    </div>
     <div>
       <a href="/posts">Back to All Posts</a>
     </div>

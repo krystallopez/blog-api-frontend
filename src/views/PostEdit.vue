@@ -4,14 +4,23 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      newPostsParams: {},
+      post: {},
       errors: [],
     };
   },
+  created: function () {
+    this.showPost();
+  },
   methods: {
-    createPost: function () {
+    showPost: function () {
+      axios.get("/posts/" + this.$route.params.id + ".json").then((response) => {
+        this.post = response.data;
+        console.log("One Post", response.data);
+      });
+    },
+    editPost: function () {
       axios
-        .post("/posts.json", this.newPostsParams)
+        .patch("/posts/" + this.post.id + ".json", this.post)
         .then((response) => {
           console.log("Success!", response.data);
           this.$router.push("/posts");
@@ -27,8 +36,8 @@ export default {
 
 <template>
   <div>
-    <h1>New Post</h1>
-    <form v-on:submit.prevent="createPost()">
+    <h1>Edit Post</h1>
+    <form v-on:submit.prevent="editPost()">
       <ul>
         <li v-for="error in errors" v-bind:key="error">
           {{ error }}
@@ -36,15 +45,15 @@ export default {
       </ul>
       <div>
         Title:
-        <input type="text" v-model="newPostsParams.title" />
+        <input type="text" v-model="post.title" />
       </div>
       <div>
         Body:
-        <input type="text" v-model="newPostsParams.body" />
+        <input type="text" v-model="post.body" />
       </div>
       <div>
         Image:
-        <input type="text" v-model="newPostsParams.image" />
+        <input type="text" v-model="post.image" />
       </div>
       <div>
         <input type="submit" value="Submit Post" />
@@ -52,5 +61,3 @@ export default {
     </form>
   </div>
 </template>
-
-<style scoped></style>
