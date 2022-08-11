@@ -36,18 +36,21 @@ export default {
       </ul>
       <div>
         Title:
-        <input type="text" v-model="newPostsParams.title" />
+        <input class="form-control" type="text" v-model="newPostsParams.title" />
       </div>
       <div>
         Body:
-        <input type="text" v-model="newPostsParams.body" />
+        <input class="form-control" type="text" v-model="newPostsParams.body" />
+        <br />
+        <small v-if="newPostsParams.body">{{ 250 - newPostsParams.body.length }} characters remaining</small>
+        <br />
       </div>
       <div>
         Image:
-        <input type="text" v-model="newPostsParams.image" />
+        <input class="form-control" type="text" v-model="newPostsParams.image" />
       </div>
       <div>
-        <input type="submit" value="Submit Post" />
+        <input class="btn btn-primary" type="submit" value="Submit Post" />
       </div>
     </form>
   </div>
